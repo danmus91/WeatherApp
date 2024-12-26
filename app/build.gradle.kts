@@ -38,6 +38,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -70,4 +71,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // view model
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    // live data
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+
 }

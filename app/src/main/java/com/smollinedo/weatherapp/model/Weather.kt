@@ -1,4 +1,8 @@
 package com.smollinedo.weatherapp.model
 
-class Weather {
+class Weather (  val id: Long,
+                 val main: String,
+                 val description: String,
+                 val icon: String) {
+
 }
