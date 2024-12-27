@@ -71,10 +71,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
     // view model
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     // live data
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    // Map
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    // fragment
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
 
 }
