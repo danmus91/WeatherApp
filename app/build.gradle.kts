@@ -84,4 +84,10 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     // appcompat compatibilidad con dispositivos antiguos
     implementation("androidx.appcompat:appcompat:1.6.1")
+    // retrofit 2
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // gson convert
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // login interceptor
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 }
