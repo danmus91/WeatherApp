@@ -4,8 +4,16 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/weather_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/weather_icon" />
+
     <TextView
-        android:id="@+id/location_name"
+        android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre de ubicación"
@@ -13,10 +21,24 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/location_coordinates"
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coordenadas" />
+        android:text="Direccion" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperatura"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperatura"
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/weather_description"
@@ -25,10 +47,4 @@
         android:text="Descripción del clima"
         android:layout_marginTop="8dp" />
 
-    <TextView
-        android:id="@+id/temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Temperatura"
-        android:layout_marginTop="4dp" />
 </LinearLayout>
