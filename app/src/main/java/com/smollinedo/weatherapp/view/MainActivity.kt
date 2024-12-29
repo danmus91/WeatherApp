@@ -1,6 +1,7 @@
 package com.smollinedo.weatherapp.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -8,45 +9,70 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.smollinedo.weatherapp.R
+// view Binding
+import com.smollinedo.weatherapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var map : GoogleMap
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var googleMap : GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        createFragment()
-    }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    private fun createFragment() {
-        val mapFragment : SupportMapFragment = supportFragmentManager.findFragmentById(R.id.viewContainer) as SupportMapFragment
+        //  inicia places API
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, getString(R.string.google_maps_key))
+        }
+
+        // inicia map
+        val mapFragment = supportFragmentManager.findFragmentById(binding.mapFragment.id)as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        setupAutocomplete()
     }
 
-    override fun onMapReady(googleMap : GoogleMap) {
-        map = googleMap
-        createMarker()
-    }
+    override fun onMapReady(map : GoogleMap) {
+        googleMap = map
 
-    private fun createMarker() {
-        val coordinates = LatLng(-16.498270, -68.133558)
-        val marker : MarkerOptions = MarkerOptions().position(coordinates).title("Mi playa favorita")
-        map.addMarker(marker)
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 18f),4000,null)
+        // Default location
+        val defaultLocation = LatLng(-16.4983148, -68.1335649) //
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 20f))
 
-        map.setOnMapClickListener { latLng ->
-            // Display the coordinates
-            val latitude = latLng.latitude
-            val longitude = latLng.longitude
-            println("Coordinates: Lat = $latitude, Lng = $longitude")
-
-            // Optionally add a marker on the clicked position
-            map.clear() // Clear previous markers
-            map.addMarker(MarkerOptions().position(latLng).title("Selected Location"))
+        // Add a map click listener
+        googleMap.setOnMapClickListener { latLng ->
+            googleMap.clear() // Clear previous markers
+            googleMap.addMarker(MarkerOptions().position(latLng).title("Selected Location"))
+            Toast.makeText(this, "Coordinates: ${latLng.latitude}, ${latLng.longitude}", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun setupAutocomplete() {
+        val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocompleteFragment) as AutocompleteSupportFragment
+
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                // Move camera to selected place
+                place.latLng?.let {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 15f))
+                    googleMap.addMarker(MarkerOptions().position(it).title(place.name))
+                }
+            }
+
+            override fun onError(status: com.google.android.gms.common.api.Status) {
+                Toast.makeText(this@MainActivity, "Error: $status", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 }
 
 
