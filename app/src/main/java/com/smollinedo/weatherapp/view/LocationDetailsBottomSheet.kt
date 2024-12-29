@@ -13,6 +13,8 @@ class LocationDetailsBottomSheet : BottomSheetDialogFragment()  {
 
     private var locationName: TextView? = null
     private var locationCoordinates: TextView? = null
+    private var weatherDescription: TextView? = null
+    private var temperature: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +24,8 @@ class LocationDetailsBottomSheet : BottomSheetDialogFragment()  {
         val view = inflater.inflate(R.layout.bottom_sheet_weather, container, false)
         locationName = view.findViewById(R.id.location_name)
         locationCoordinates = view.findViewById(R.id.location_coordinates)
+        weatherDescription = view.findViewById(R.id.weather_description)
+        temperature = view.findViewById(R.id.temperature)
         return view
     }
 
@@ -33,19 +37,23 @@ class LocationDetailsBottomSheet : BottomSheetDialogFragment()  {
         locationCoordinates = view.findViewById(R.id.location_coordinates)
     }
 
-    fun setLocationDetails(name: String, coordinates: String) {
+    fun setLocationDetails(name: String, coordinates: String, weather: String, temp: String) {
 
         Log.d("LocationDetails", "Location Name: $name")
         Log.d("LocationDetails", "Coordinates: $coordinates")
 
-        if (locationName != null && locationCoordinates != null) {
-            locationName?.text = name
-            locationCoordinates?.text = coordinates
-        } else {
-            // Si las vistas no se han inicializado correctamente, se vuelve a intentar
-            // Esto puede ocurrir si se llama a setLocationDetails antes de que el fragmento se haya creado.
-            // Puedes agregar un log para verificar si está ocurriendo esto
-            println("Vistas aún no inicializadas. Intentando más tarde.")
-        }
+        locationName?.text = name
+        locationCoordinates?.text = coordinates
+        weatherDescription?.text = weather
+        temperature?.text = temp
+
+//        if (locationName != null && locationCoordinates != null) {
+//            locationName?.text = name
+//            locationCoordinates?.text = coordinates
+//            weatherDescription?.text = weather
+//            temperature?.text = temp
+//        } else {
+//            println("Vistas aún no inicializadas. Intentando más tarde.")
+//        }
     }
 }

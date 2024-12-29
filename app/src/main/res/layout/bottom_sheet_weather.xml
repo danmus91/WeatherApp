@@ -6,15 +6,29 @@
 
     <TextView
         android:id="@+id/location_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location Name"
-        android:textSize="16sp" />
+        android:text="Nombre de ubicación"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/location_coordinates"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coordinates"
-        android:textSize="14sp" />
+        android:text="Coordenadas" />
+
+    <TextView
+        android:id="@+id/weather_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descripción del clima"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperatura"
+        android:layout_marginTop="4dp" />
 </LinearLayout>
